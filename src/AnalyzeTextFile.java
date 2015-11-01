@@ -18,9 +18,7 @@ public class AnalyzeTextFile {
 
 
     private void readFile(String path) throws IOException{
-
         BufferedReader br = new BufferedReader(new FileReader(path));
-
         while (br.ready()) {
             System.out.println(br.readLine());
         }
