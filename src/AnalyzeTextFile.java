@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.HashMap;
 
 /**
  * Created by amaridev on 01/11/15.
@@ -20,22 +21,41 @@ public class AnalyzeTextFile {
     }
 
     public String analyze(String inputString){
-     String outputString = "";
-        return outputString;
+        String sOutputString = "";
+        int[] iaTable = new int[26];
+        HashMap <Integer, Integer> hashMap = new HashMap<>();
+
+        for (int i = 0; i < inputString.length(); i++) {
+            char c = inputString.charAt(i);
+            if (c != ' ') {
+                // Increment existing value in HashMap.
+                // ... Start with zero if no key exists.
+                int value = hashMap.getOrDefault((int) c, 0);
+                hashMap.put((int) c, value + 1);
+            }
+        }
+        for (int key : hashMap.keySet()) {
+            sOutputString += ((char) key + ": " + hashMap.get(key)) + "\n";
+        }
+
+        return sOutputString;
     }
 
     private String readFile(String path) throws IOException{
         BufferedReader br = new BufferedReader(new FileReader(path));
-        String out = "";
+        String sOut = "", line;
         while (br.ready()) {
-            out += br;
+            line = br.readLine();
+            if (line == null) break;
+            sOut += line;
         }
-        return out;
+        br.close();
+        return sOut;
     }
 
-    private void writeFile(String path, String write) throws IOException{
-        BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(path));
-
+    private void writeFile(String path, String sWrite) throws IOException{
+        PrintWriter writer = new PrintWriter(path);
+        writer.write(sWrite);
     }
 }
 
