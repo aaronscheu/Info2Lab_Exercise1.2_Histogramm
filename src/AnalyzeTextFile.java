@@ -37,8 +37,12 @@ public class AnalyzeTextFile {
                 hashMap.put((int) c, value + 1);
             }
         }
+
         for (int key : hashMap.keySet()) {
-            sOutputString += ((char) key + ": " + hashMap.get(key)) + "\n";
+            String temp = "";
+            for (int i = 0; i < hashMap.get(key); i++)
+                temp += '#';
+            sOutputString += ((char) key + ": " + temp) + "\n";
         }
 
         return sOutputString;
